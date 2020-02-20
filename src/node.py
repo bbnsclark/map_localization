@@ -54,11 +54,11 @@ class Node:
         
         cur_pose.pose.orientation.w = msg.pose.pose.orientation.w
 
-        if self.sub_tf.frameExists("odom") and self.sub_tf.frameExists("map_inertial"):
+        self.sub_tf.waitForTransform("/map_inertial", "/odom", rospy.Time.now(), rospy.Duration(4.0))
 
-            self.map_pose = self.sub_tf.transformPose("map_inertial", cur_pose)
+        self.map_pose = self.sub_tf.transformPose("map_inertial", cur_pose)
 
-            self.pub_pose_map.publish(self.map_pose)
+        self.pub_pose_map.publish(self.map_pose)
         
 
     def shutdown(self):
