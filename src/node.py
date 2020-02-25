@@ -20,7 +20,7 @@ class Node:
 
         self.sub_tf = tf.TransformListener()
         
-        self.sub_odom = rospy.Subscriber('odom_inertial', Odometry, self.odom_callback)
+        self.sub_odom = rospy.Subscriber('odom', Odometry, self.odom_callback)
         
         self.pub_pose_map = rospy.Publisher('map_pose', PoseStamped, queue_size = 1)
 
@@ -56,7 +56,7 @@ class Node:
 
         self.sub_tf.waitForTransform("/odom", "/map_inertial", rospy.Time.now(), rospy.Duration(4.0))
 
-        self.map_pose = self.sub_tf.transformPose("map_inertial", cur_pose)
+        self.map_pose = self.sub_tf.transformPose("map", cur_pose)
 
         self.pub_pose_map.publish(self.map_pose)
         
