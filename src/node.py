@@ -54,7 +54,7 @@ class Node:
         
         cur_pose.pose.orientation.w = msg.pose.pose.orientation.w
 
-        self.sub_tf.waitForTransform("/odom", "/map_inertial", rospy.Time.now(), rospy.Duration(4.0))
+        self.sub_tf.waitForTransform("/odom", "/map", rospy.Time.now(), rospy.Duration(4.0))
 
         self.map_pose = self.sub_tf.transformPose("map", cur_pose)
 
